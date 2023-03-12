@@ -16,6 +16,7 @@ management:
   #      show-details: always
   endpoints:
     web:
+      base-path: "/manage"  # endpoint 경로 변경 (URL 경로가 /actuator/{endpoint} 대신 /manage/{endpoint} 로 변경)
       exposure:
         include: "*"
 info:
