@@ -1,9 +1,13 @@
 package hello.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,5 +33,18 @@ public class TrafficController {
             list.add("hello jvm!" + i);
         }
         return "ok jvm";
+    }
+
+    @Autowired
+    DataSource dataSource;
+
+    @GetMapping("/jdbc")
+    public String jdbc() throws SQLException {
+        log.info("jdbc");
+        Connection conn = dataSource.getConnection();  // Hikari Connection Pool
+        log.info("connection : {}", conn);
+
+        // conn.close();  // 커넥션을 닫지 않음
+        return "ok";
     }
 }
